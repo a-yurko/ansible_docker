@@ -24,15 +24,15 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./php-site:/var/www/html
 
-  apache:
-    build:
-      context: apache
-      dockerfile: Docker_apache
-    container_name: apache
-    volumes:
-      - ./apache/wp/public_html:/var/www/wordpress.tsiplenkov.ru/public_html
-    ports:
-      - "8090:8081"
+#  apache:
+#    build:
+#      context: apache
+#      dockerfile: Docker_apache
+#    container_name: apache
+#    volumes:
+#      - ./apache/wp/public_html:/var/www/mysite.ru/public_html
+#    ports:
+#      - "8090:8081"
 
   php:
     image: {{ php_image }}
