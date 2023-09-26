@@ -1,0 +1,3 @@
+server_name: myserver.ru
+document_root: /var/www/webapp
+php_version: 7.4
