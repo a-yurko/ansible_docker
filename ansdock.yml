@@ -1,0 +1,6 @@
+---
+- hosts: ubuntu-dock
+  roles:
+    - role: ansdock
+  become: true
+  

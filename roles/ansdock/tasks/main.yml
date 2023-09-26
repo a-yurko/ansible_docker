@@ -1,0 +1,74 @@
+---
+  - name: Update apt package cache
+    apt:
+      update_cache: yes
+
+  - name: Install required packages for Docker
+    apt:
+      name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+
+  - name: Add Docker GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker APT repository
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+
+  - name: Install Docker
+    apt:
+      name: docker-ce
+      state: present
+
+  - name: Start and enable Docker service
+    systemd:
+      name: docker
+      enabled: yes
+      state: started
+
+  - name: Download Docker Compose
+    get_url:
+      url: "https://github.com/docker/compose/releases/download/v2.22.0/docker-compose-linux-x86_64"
+      dest: /usr/local/bin/docker-compose
+      mode: '0755'
+
+  - name: Create directory Docker
+    file:
+      path: /home/andrew/dockerproject1
+      state: directory
+
+  - name: Create Docker Compose file
+    template:
+      src: docker-compose.j2
+      dest: /home/andrew/dockerproject1/docker-compose.yml
+
+  - name: Create directory Docker
+    file:
+      path: /home/andrew/dockerproject1/php-site
+      state: directory
+
+  - name: Copy PHP file
+    copy:
+      src: php-v.php
+      dest: /home/andrew/dockerproject1/php-site/php-v.php
+
+  - name: Making nginx file
+    template:
+      src: nginx.j2
+      dest: /home/andrew/dockerproject1/nginx.conf
+    notify: Restart nginx
+
+  # - name: Copy Dockerfile
+    # copy:
+      # src: docker-compose.yml
+      # dest: /home/andrew/dockerproject1/docker-compose.yml
+
+  - name: Start Docker Compose stack
+    command: "docker-compose up -d"
+    args:
+      chdir: /home/andrew/dockerproject1

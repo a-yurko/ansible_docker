@@ -1,0 +1,11 @@
+---
+  nginx_image: "nginx:alpine"
+  mysql_image: "mysql:8.0"
+  php_image: "php:7.4-fpm"
+  mysql_user: db_user
+  mysql_root_pw: GHn9YrDc
+  mysql_pw: N5Eg2aPG
+  mysql_db: mysql_db
+  server_name: "phpsrv.ru"
+  document_root: "/var/www/webapp"
+  php_version: "7.4"
