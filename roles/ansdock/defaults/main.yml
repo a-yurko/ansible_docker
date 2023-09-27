@@ -9,3 +9,5 @@
   server_name: "phpsrv.ru"
   document_root: "/var/www/webapp"
   php_version: "7.4"
+  php_container: "php_container"
+  

@@ -54,19 +54,14 @@
 
   - name: Copy PHP file
     copy:
-      src: php-v.php
-      dest: /home/andrew/dockerproject1/php-site/php-v.php
+      src: index.php
+      dest: /home/andrew/dockerproject1/php-site/index.php
 
   - name: Making nginx file
     template:
       src: nginx.j2
       dest: /home/andrew/dockerproject1/nginx.conf
     notify: Restart nginx
-
-  # - name: Copy Dockerfile
-    # copy:
-      # src: docker-compose.yml
-      # dest: /home/andrew/dockerproject1/docker-compose.yml
 
   - name: Start Docker Compose stack
     command: "docker-compose up -d"
