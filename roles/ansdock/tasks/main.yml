@@ -39,31 +39,31 @@
 
   - name: Create directory Docker
     file:
-      path: /home/andrew/dockerproject1
+      path: {{ target_path }}
       state: directory
 
   - name: Create Docker Compose file
     template:
       src: docker-compose.j2
-      dest: /home/andrew/dockerproject1/docker-compose.yml
+      dest: {{ target_path }}/docker-compose.yml
 
   - name: Create directory Docker
     file:
-      path: /home/andrew/dockerproject1/php-site
+      path: {{ target_path }}/php-site
       state: directory
 
   - name: Copy PHP file
     copy:
       src: index.php
-      dest: /home/andrew/dockerproject1/php-site/index.php
+      dest: {{ target_path }}/php-site/index.php
 
   - name: Making nginx file
     template:
       src: nginx.j2
-      dest: /home/andrew/dockerproject1/nginx.conf
+      dest: {{ target_path }}/nginx.conf
     notify: Restart nginx
 
   - name: Start Docker Compose stack
     command: "docker-compose up -d"
     args:
-      chdir: /home/andrew/dockerproject1
+      chdir: {{ target_path }}
