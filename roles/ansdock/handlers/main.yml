@@ -1,9 +1,9 @@
 ---
 # handlers file for ansdock
 - name: Restart nginx
-  command: cd /home/andrew/dockerproject1 && docker-compose exec nginx nginx -s reload
+  command: "cd /home/andrew/dockerproject1 && docker-compose exec nginx nginx -s reload"
   when: ansible_os_family == "Debian"
 
 - name: Restart apache
-  command: cd /home/andrew/dockerproject1 && docker-compose exec apache apache2ctl -k graceful
+  command: "cd /home/andrew/dockerproject1 && docker-compose exec apache apache2ctl -k graceful"
   when: ansible_os_family == "Debian"
